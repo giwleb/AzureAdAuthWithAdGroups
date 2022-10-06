@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "U6g0a5JpfusWa/lHIkIhvnh5j4XJd8QTWpYsguuXmXk=",
+  "Source": "AzureAdAuthWithAdGroups",
+  "BasePath": "_content/AzureAdAuthWithAdGroups",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
