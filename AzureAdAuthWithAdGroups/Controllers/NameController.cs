@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
+using System.Text.Json.Nodes;
 
 namespace AzureAdAuthWithAdGroups.Controllers
 {
@@ -45,6 +46,16 @@ namespace AzureAdAuthWithAdGroups.Controllers
         public IActionResult GetAll()
         {
             return Ok(new List<string> { "ALL!" });
+        }      
+
+        [Authorize(Policy = "RequireDaemonRole")]
+        [HttpGet("[action]")]
+        public IActionResult GetConsole()
+        {
+            return Ok(new JsonArray(new JsonObject
+            {
+                ["employeesList"] = new JsonArray("Aman", "Priyank", "Tejas", "Raj")
+            }));
         }
     }
 }

@@ -32,6 +32,8 @@ builder.Services.AddAuthorization(options =>
         policy.Requirements.Add(FimDisbursementEntryRequirement);
         policy.Requirements.Add(FimCorporateAdminRequirement);
     });
+     
+    options.AddPolicy("RequireDaemonRole", policy => policy.RequireRole("DaemonAppRole"));
 });
 
 builder.Services.AddControllers();
