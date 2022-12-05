@@ -11,33 +11,33 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddMicrosoftGraph(builder.Configuration.GetSection("MicrosoftGraph"))
             .AddInMemoryTokenCaches();
 
-var FimUserRequirement = new GroupAuthorizationRequirement(builder.Configuration["AuthGroups:FimUserGroupIds"].Split(',').ToList());
+var FimUserGroupRequirement = new GroupAuthorizationRequirement(builder.Configuration["AuthGroups:FimUserGroupIds"].Split(',').ToList());
 
-var FimDisbursementEntryRequirement = new GroupAuthorizationRequirement(builder.Configuration["AuthGroups:FimDisbursementEntryGroupIds"].Split(',').ToList());
+var FimDisbursementEntryGroupRequirement = new GroupAuthorizationRequirement(builder.Configuration["AuthGroups:FimDisbursementEntryGroupIds"].Split(',').ToList());
 
-var FimCorporateAdminRequirement = new GroupAuthorizationRequirement(builder.Configuration["AuthGroups:FimCorporateAdminGroupIds"].Split(',').ToList());
+var FimCorporateAdminGroupRequirement = new GroupAuthorizationRequirement(builder.Configuration["AuthGroups:FimCorporateAdminGroupIds"].Split(',').ToList());
 
 // Add services to the container.
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("FimUserPolicy", policy => policy.Requirements.Add(FimUserRequirement));
+    options.AddPolicy("FimUserGroupPolicy", policy => policy.Requirements.Add(FimUserGroupRequirement));
 
-    options.AddPolicy("FimDisbursementEntryPolicy", policy => policy.Requirements.Add(FimDisbursementEntryRequirement));
+    options.AddPolicy("FimDisbursementEntryGroupPolicy", policy => policy.Requirements.Add(FimDisbursementEntryGroupRequirement));
 
-    options.AddPolicy("FimCorporateAdminPolicy", policy => policy.Requirements.Add(FimCorporateAdminRequirement));
+    options.AddPolicy("FimCorporateAdminGroupPolicy", policy => policy.Requirements.Add(FimCorporateAdminGroupRequirement));
 
-    options.AddPolicy("FimAllPermissionsPolicy", policy =>
+    options.AddPolicy("FimAllPermissionsGroupPolicy", policy =>
     {
-        policy.Requirements.Add(FimDisbursementEntryRequirement);
-        policy.Requirements.Add(FimCorporateAdminRequirement);
+        policy.Requirements.Add(FimDisbursementEntryGroupRequirement);
+        policy.Requirements.Add(FimCorporateAdminGroupRequirement);
     });
      
     options.AddPolicy("RequireDaemonRole", policy => policy.RequireRole("DaemonAppRole"));
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

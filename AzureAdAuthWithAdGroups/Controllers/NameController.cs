@@ -21,7 +21,7 @@ namespace AzureAdAuthWithAdGroups.Controllers
         
         
         
-        [Authorize(Policy = "FimDisbursementEntryPolicy")]
+        [Authorize(Policy = "FimDisbursementEntryGroupPolicy")]
         [HttpGet("[action]")]
         public IActionResult GetName()
         {
@@ -31,7 +31,7 @@ namespace AzureAdAuthWithAdGroups.Controllers
 
 
 
-        [Authorize(Policy = "FimCorporateAdminPolicy")]
+        [Authorize(Policy = "FimCorporateAdminGroupPolicy")]
         [HttpGet("[action]")]
         public IActionResult GetDouble()
         {
@@ -41,14 +41,15 @@ namespace AzureAdAuthWithAdGroups.Controllers
 
 
 
-        [Authorize(Policy = "FimAllPermissionsPolicy")]
+        [Authorize(Policy = "FimAllPermissionsGroupPolicy")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
             return Ok(new List<string> { "ALL!" });
         }      
 
-        [Authorize(Policy = "RequireDaemonRole")]
+
+        [Authorize(Policy = "RequireDaemonRolePolicy")]
         [HttpGet("[action]")]
         public IActionResult GetConsole()
         {
